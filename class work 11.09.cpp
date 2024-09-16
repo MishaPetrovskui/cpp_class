@@ -1,111 +1,101 @@
 #include <iostream>
-#include <windows.h>
+#include <time.h>
 using namespace std;
 
-void SetColor(int textColor, int bgColor)
+int randint(int min, int max)
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole,
-		(bgColor << 4) | textColor);
+	return (rand() % (max - min + 1)) + min;
 }
+
 
 int main()
 {
-	int vibor_menu = 0;
+	srand(time(nullptr));
 	while (true)
 	{
-		SetColor(5, 0);
-		cout << "Menu:\n1.Student\n2.Parne/Neparne\n3.Calkulator\n0.Exit" << endl;
-		cout << "Deystvie: ";
-		cin >> vibor_menu;
-		SetColor(0, 0);
-
-		if (vibor_menu == 0) {
+		const int len = 10;
+		int array[len];
+		int a;
+		cout << "1.Start\n2.Exit" << endl;
+		cin >> a;
+		if (a == 1) 
+		{
+			while (true)
+			{
+				int _;
+				for (int i = 0; i < len; i++)
+				{
+					array[i] = randint(1,12);
+				}
+				cout << "1.Vuvid ochinok\n2.Peresdacha ispitu\n3.Chi vihodit stependiya" << endl;
+				cin >> _;
+				if (_ == 1)
+				{
+					for (int i = 0; i < len; i++)
+					{
+						cout << i + 1 << ". " << array[i] << "  ";
+					}
+					cout << "\n";
+				}
+				else if (_ == 2)
+				{
+					int number;
+					int new1;
+					for (int i = 0; i < len; i++)
+					{
+						cout << i + 1 << array[i] << "  ";
+					}
+					cout << "Nomer elementa,kotoriy hojeh izmenit: ";
+					cin >> number;
+					cout << "Novaya ohenka: ";
+					cin >> new1;
+					array[number - 1] = new1;
+					break;
+				}
+				else if (_ == 3)
+				{
+					int suma = 0;
+					for (int i = 0; i < len; i++)
+					{
+						suma += array[i];
+					}
+					if (suma / len >= 10)
+					{
+						cout << "Vishla stependiya" << endl;
+						break;
+					}
+					else
+					{
+						cout << "Ne vishla stependiya" << endl;
+						break;
+					}
+				}
+			}
+		}
+		else if (a == 2)
+		{
 			break;
 		}
-		while (true)
+		else
 		{
-			if (vibor_menu == 1) {
-				float a, b, c, d, e, f;
-				SetColor(8, 0);
-				cout << "\nInput first ocenka: ";
-				cin >> a;
-				cout << "Input second ocenka: ";
-				cin >> b;
-				cout << "Input third ocenka: ";
-				cin >> c;
-				cout << "Input fourth ocenka: ";
-				cin >> d;
-				cout << "Input fifth ocenka: ";
-				cin >> e;
-				if (a <= 5 && b <= 5 && c <= 5 && d <= 5 && e <= 5)
-				{
-					f = (a + b + c + d + e) / 5;
-					if (f >= 4) {
-						SetColor(10, 0);
-						cout << "Ti otrimal dostup, tvoya ochenka: " << f << endl << "\n";
-						break;
-					}
-					else {
-						SetColor(10, 0);
-						cout << "Ti ne otrimal dostup, tvoya ochenka: " << f << endl << "\n";
-						break;
-					}
-				}
-				else
-				{
-					SetColor(4, 0);
-					Sleep(5000);
-					cout << "Nepravilno" << endl << "\n";
-					break;
-				}
-			}
-			else if (vibor_menu == 2) {
-				int chislo;
-				SetColor(8, 0);
-				cout << "\nVedi chislo: ";
-				cin >> chislo;
-				if (chislo % 2 == 0)
-				{
-					SetColor(10, 0);
-					cout << "\n" << chislo * 3 << endl << "\n";
-					break;
-				}
-				else if (chislo % 2 != 0)
-				{
-					SetColor(10, 0);
-					cout << "\n" << chislo / 2 << endl << "\n";
-					break;
-				}
-			}
-			else if (vibor_menu == 3) {
-				float a, b;
-				char diya;
-				int _ = 0;
-				SetColor(8, 0);
-				cout << "\nInput first number: ";
-				cin >> a;
-				cout << "Input second number: ";
-				cin >> b;
-				cout << "Input arifmetichna diya: ";
-				cin >> diya;
-				switch (diya)
-				{
-				case '+': SetColor(10, 0); cout << a + b << endl << "\n"; _++; break;
-				case '-': SetColor(10, 0); cout << a + b << endl << "\n"; _++; break;
-				case '*': SetColor(10, 0); cout << a + b << endl << "\n"; _++; break;
-				case '/': SetColor(10, 0); cout << a + b << endl << "\n"; _++; break;
-				default: SetColor(4, 0); Sleep(5000); cout << "Nepravilno" << endl << "\n"; break;
-				}
-				if (_ == 1) { break; }
-			}
-			else {
-				SetColor(4, 0);
-				Sleep(500);
-				cout << "\nNepravlnoe chislo\n";
-				break;
-			}
+			cout << "Nepravilno" << endl;
 		}
 	}
-	return 0;
+	
+	/*
+	
+	for (int i = 0; i < len; i++)
+	{
+		cout << array[i] << "  ";
+	}
+	cout << "\n";
+	for (int i = 0; i < len; i++)
+	{
+		if (array[i] % 2 == 0){
+			cout << array[i] << "  ";
+		}
+	}
+	*/
+
+	return 1;
 }
