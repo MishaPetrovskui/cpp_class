@@ -15,12 +15,30 @@ int main() {
 	double sum = 0;
 	int max = matrix[rows][columns];
 	int min = matrix[rows][columns];
+	int min_mas[rows];
+	int max_mas[rows];
+	
 
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < columns; j++)
 		{
 			matrix[i][j] = randint(-20, 20);
+		}
+	}
+
+	for (int n = 0; n < rows; n++) {
+		min_mas[n] = matrix[n][0];
+	}
+	for (int n = 0; n < rows; n++) {
+		max_mas[n] = matrix[n][0];
+	}
+
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			
 		}
 	}
 
@@ -38,10 +56,18 @@ int main() {
 			{
 				min = matrix[i][j];
 			}
+			if (matrix[i][j] > max_mas[i])
+			{
+				max_mas[i] = matrix[i][j];
+			}
+			if (matrix[i][j] < min_mas[i])
+			{
+				min_mas[i] = matrix[i][j];
+			}
 		}
 		cout << " | "; cout << "Suma: " << sum; cout << ", ";
 		cout << "Seredne arifmetichne: " << double(sum / (rows * columns));
-		cout << ", "; cout << "max = " << max; cout << ", "; cout << "min = " << min << endl;
+		cout << ", "; cout << "max = " << max_mas[i]; cout << ", "; cout << "min = " << min_mas[i] << endl;
 		cout << endl;
 	}
 	cout << endl << endl << endl;
