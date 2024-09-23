@@ -16,35 +16,26 @@ void sum(const int rows, const int columns)
     Sleep(2000);
 }
 
-void faktorial(int a)
+int faktorial(int a)
 {
     int b = 1;
     for (int i = 1; i <= a; i++)
     {
         b = b * i;
     }
-    cout << a << "! = " << b;
-    Sleep(2000);
+    return b;
 }
 
-void parne(int a)
+int parne(int a)
 {
     for (int i = 2; i < a - 1; i++)
     {
         if (a % i == 0)
         {
-            cout << "ne proste";
-            Sleep(2000);
-            break;
-        }
-        else
-        {
-            cout << "proste";
-            Sleep(2000);
-            break;
+            return 1;
         }
     }
-    
+    return 2;
 }
 
 int main()
@@ -53,7 +44,7 @@ int main()
     {
         int _;
         system("cls");
-        cout << "Menu:\n1.Pryamokutnik\n2.Faktorial\n3.Parne\nVibor: ";
+        cout << "Menu:\n1.Pryamokutnik\n2.Faktorial\n3.Proste\nVibor: ";
         cin >> _;
         if (_ == 1)
         {
@@ -69,14 +60,24 @@ int main()
             int c;
             cout << "Vedi chislo: ";
             cin >> c;
-            faktorial(c);
+            cout << c << "! = " << faktorial(c);
+            Sleep(2000);
         }
         else if (_ == 3)
         {
             int a;
             cout << "Vedoi chislo: ";
             cin >> a;
-            parne(a);
+            int b = parne(a);
+            if (b == 1)
+            {
+                cout << "Neproste";
+            }
+            else if (b == 2)
+            {
+                cout << "Proste";
+            }
+            Sleep(2000);
         }
     }
     
