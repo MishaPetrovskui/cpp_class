@@ -7,7 +7,7 @@ int randint(int min, int max)
 {
 	return (rand() % (max - min + 1)) + min;
 }
-
+/*
 void print_array(int array[], int& size)
 {
 	for (int i = 0; i < size; i++)
@@ -66,12 +66,25 @@ int parni(int array[], int& size)
 	}
 	return parni;
 }
-
+*/
+int maximum(int array[], int& size)
+{
+	int max = array[0];
+	for (int i = 0; i < size; i++)
+	{
+		if (max < array[i])
+		{
+			max = array[i];
+		}
+	}
+	return max;
+}
 int main()
 {
 	srand(time(0));
 	const int size = 5;
 	int array[size];
+	/*
 	for (int i = 0; i < size; i++)
 	{
 		array[i] = randint(-50, 50);
@@ -118,6 +131,34 @@ int main()
 			Sleep(5000);
 		}
 	}
+	*/
+	int a = size;
+	for (int i = 0; i < size; i++)
+	{
+		array[i] = randint(-50, 50);
+	}
+	for (int i = 0; i < size; i++)
+	{
+		cout << array[i] << ", ";
+	}
+	cout << "\b\b." << endl;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (array[i] < 0)
+		{
+			array[i] = -10;
+		}
+	}
+	
+	for (int i = 0; i < size; i++)
+	{
+		if (array[i] != -10)
+		{
+			cout << array[i] << ", ";
+		}
+	}
+	cout << "\b\b." << endl;
 
 	return 0;
 }
