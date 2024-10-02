@@ -50,28 +50,28 @@ void print_array_lesson(int* array, int size, int min, int max)
 
 int minimum(int* array, int size)
 {
-	int min;
+	int minx = 0;
 	for (int i = 0; i < size; i++)
 	{
-		if (array[i] < min)
+		if (array[i] < minx)
 		{
-			min = array[i];
+			minx = array[i];
 		}
 	}
-	return min;
+	return minx;
 }
 
 int maximum(int* array, int size)
 {
-	int max;
+	int maxx = 0;
 	for (int i = 0; i < size; i++)
 	{
-		if (array[i] > max)
+		if (array[i] > maxx)
 		{
-			max = array[i];
+			maxx = array[i];
 		}
 	}
-	return max;
+	return maxx;
 }
 
 int main()
@@ -88,7 +88,7 @@ int main()
 	{
 		array[i] = randint(0,10);
 	}
-	
+
 	for (int i = 0; i < size; i++)
 	{
 		if (array[i] == 0)
@@ -123,7 +123,7 @@ int main()
 	delete[] array;
 	delete[] chtoto;
 	*/
-	int size = 0,suma = 0;
+	int size = 0, suma = 0;
 	cout << "input size: ";
 	cin >> size;
 	int* array = new int[size];
@@ -135,7 +135,7 @@ int main()
 	{
 		for (int i = 0; i < size; i++)
 		{
-			cout << i << ". " << array[i] << ";\t";
+			cout << i + 1 << ". " << array[i] << "$;\t";
 		}
 		for (int i = 0; i < size; i++)
 		{
@@ -144,11 +144,29 @@ int main()
 		int avg = suma / size;
 		cout << "\b\b." << endl;
 		cout << endl;
-		cout << "MIN: " << minimum(array, size) << "   MAX: " <<
-			maximum(array, size) << "   AVG: " << size;
-		cout "- Zavershiti robotu programi;\n- Dodati prodaji za she odin misath i pererahuvati statistiku"
+		cout << "MIN: " << minimum(array, size) << "$   MAX: " <<
+			maximum(array, size) << "$   AVG: " << size << "$" << endl;
+		int vibor;
+		cout << "- Zavershiti robotu programi(1);\n- Dodati prodaji za she odin misath i pererahuvati statistiku(2)" << endl;
+		cout << "Vibor: ";
+		cin >> vibor;
+		if (vibor == 1)
+		{
+			break;
+		}
+		else if (vibor == 2)
+		{
+			size++;
+			int g;
+			cout << "vedi jenu prodaji: ";
+			cin >> g;
+			for (int i = size-1; i = size-1; i++)
+			{
+				array[i] = g;
+			}
+		}
 	}
-	
+
 
 
 
