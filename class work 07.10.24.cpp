@@ -84,7 +84,7 @@ void cub_player(char rank) {
 	cout << "|         |" << endl;
 	cout << "|         |" << endl;
 	cout << "|_________|" << endl;
-	
+
 }
 
 void cub_bot(char rank) {
@@ -106,143 +106,49 @@ int main()
 		int kakih;
 		cout << "Velkome in the game 'KUBIK'\nPress any key to continue(press 0 to break): ";
 		cin >> kakih;
-		int player_1_1, player_1_2, player_2_1, player_3, bot_1, bot_2, bot_3, sproba = 2, sproba_bot = 2, avg = 0, avg_bot = 0,suma = 0, suma_bot = 0, kolichestvo = 0, kolichestvo_bot = 0;
+		int player_1, player_2, bot_1, bot_2, avg = 0, avg_bot = 0, suma = 0, suma_bot = 0, kolichestvo = 0, kolichestvo_bot = 0;
 		if (kakih != 0)
 		{
-			int fi;
-			while (fi <= 3)
+			int fi=3;
+			while (fi != 0)
 			{
-			system("cls");
-			player_1_1 = randint(1, 6);
-			player_1_2 = randint(1, 6);
-			bot_1 = randint(2, 12);
-			cout << player_1 << endl << bot_1 << endl;
-			if (player_1 < bot_1)
-			{
-				cout << "You lose, bot have: " << bot_1 << " You have: " << player_1 << endl;
-			}
-			else if (player_1 > bot_1)
-			{
-				cout << "You win, bot have: " << bot_1 << " You have: " << player_1 << endl;
-			}
-			else
-			{
-				cout << "Draw, bot have: " << bot_1 << " You have: " << player_1 << endl;
-			}
-			cout << "You have: " << sproba << " kidkov; suma: " << suma << " avg: " << avg << endl;
-			cout << "Bot have: " << sproba_bot << " kidkov; suma: " << suma_bot << " avg: " << avg_bot << endl;
-			int action;
-			cout << "What you do?\n1)Anothe one kkubik\n2)End\nAction: ";
-			cin >> action;
-			}
-			if (action == 1)
-			{
+				fi--;
 				system("cls");
-				int bot_hotenie;
-				bot_hotenie = randint(0, 1);
-				if (bot_hotenie == 0)
+				player_1 = randint(1, 6);
+				player_2 = randint(1, 6);
+				int player = player_1 + player_2;
+				bot_1 = randint(1, 6);
+				bot_2 = randint(1, 6);
+				int bot = bot_1 + bot_2;
+				if (player < bot)
 				{
-					bot_2 = bot_1;
-				}
-				else if (bot_hotenie == 1)
-				{
-					sproba_bot--;
-					bot_2 = randint(2, 12);
-				}
-				sproba--;
-				player_2 = randint(2, 12);
-				if (player_2 < bot_2)
-				{
-					cout << "You lose, bot have: " << bot_2 << " You have: " << player_2 << endl;
+					cout << "You lose, bot have: " << bot_1 << ", " << bot_2 << " You have: " << player_1 << ", " << player_2 << endl;
+					suma += player;
 					kolichestvo++;
-					suma += player_2;
 					avg = suma / kolichestvo;
+					suma_bot += bot;
 					kolichestvo_bot++;
-					suma_bot += bot_2;
 					avg_bot = suma_bot / kolichestvo_bot;
 				}
-				else if (player_2 > bot_2)
+				else if (player > bot)
 				{
-					cout << "You win, bot have: " << bot_2 << " You have: " << player_2 << endl;
-					kolichestvo++;
-					suma += player_2;
-					avg = suma / kolichestvo;
-					kolichestvo_bot++;
-					suma_bot += bot_2;
-					avg_bot = suma_bot / kolichestvo_bot;
+					cout << "You win, bot have: " << bot_1 << ", " << bot_2 << " You have: " << player_1 << ", " << player_2 << endl;
 				}
 				else
 				{
-					cout << "Draw, bot have: " << bot_2 << " You have: " << player_2 << endl;
-					kolichestvo++;
-					suma += player_2;
-					avg = suma / kolichestvo;
-					kolichestvo_bot++;
-					suma_bot += bot_2;
-					avg_bot = suma_bot / kolichestvo_bot;
+					cout << "Draw, bot have: " << bot_1 << ", " << bot_2 << " You have: " << player_1 << ", " << player_2 << endl;
 				}
-				cout << "You have: " << sproba << " kidkov; suma: " << suma << " avg: " << avg << endl;
-				cout << "Bot have: " << sproba_bot << " kidkov; suma: " << suma_bot << " avg: " << avg_bot << endl;
+				cout << "You have: " << fi << " kidkov; suma: " << suma << " avg: " << avg << endl;
+				cout << "Bot have: suma: " << suma_bot << " avg: " << avg_bot << endl;
 				int action;
 				cout << "What you do?\n1)Anothe one kkubik\n2)End\nAction: ";
 				cin >> action;
-				if (action == 1)
-				{
-					system("cls");
-					int bot_hotenie;
-					bot_hotenie = randint(0, 1);
-					if (bot_hotenie == 0)
-					{
-						bot_3 = bot_2;
-					}
-					else if (bot_hotenie == 1)
-					{
-						sproba_bot--;
-						bot_3 = randint(2, 12);
-					}
-					sproba--;
-					player_3 = randint(2, 12);
-					if (player_3 < bot_3)
-					{
-						cout << "You lose, bot have: " << bot_2 << " You have: " << player_2 << endl;
-						kolichestvo++;
-						suma += player_3;
-						avg = suma / kolichestvo;
-						kolichestvo_bot++;
-						suma_bot += bot_3;
-						avg_bot = suma_bot / kolichestvo_bot;
-					}
-					else if (player_3 > bot_3)
-					{
-						cout << "You win, bot have: " << bot_3 << " You have: " << player_3 << endl;
-						kolichestvo++;
-						suma += player_3;
-						avg = suma / kolichestvo;
-						kolichestvo_bot++;
-						suma_bot += bot_3;
-						avg_bot = suma_bot / kolichestvo_bot;
-					}
-					else
-					{
-						cout << "Draw, bot have: " << bot_3 << " You have: " << player_3 << endl;
-						kolichestvo++;
-						suma += player_3;
-						avg = suma / kolichestvo;
-						kolichestvo_bot++;
-						suma_bot += bot_3;
-						avg_bot = suma_bot / kolichestvo_bot;
-					}
-					cout << "You have: " << sproba << " kidkov; suma: " << suma << " avg: " << avg << endl;
-					cout << "Bot have: " << sproba_bot << " kidkov; suma: " << suma_bot << " avg: " << avg_bot << endl;
-				}
-				else if (action == 2)
-				{
-					break;
-				}
-			}
-			else if (action == 2)
-			{
-				break;
+				if (action == 2)
+					fi = 0;
+				else if (action == 1)
+					continue;
+				else
+					cout << "Nepravilno" << endl;
 			}
 		}
 	}
