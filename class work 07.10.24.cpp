@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <time.h>
 #include <windows.h>
@@ -92,18 +93,18 @@ void cub(char rank) {
 void cub2(char rank, int i) {
 	if (rank == 1)
 	{
-	get_kubik(14, i + 0);
-	cout << " _________ " << endl;
-	get_kubik(14, i + 1);
-	cout << "|         |" << endl;
-	get_kubik(14, i + 2);
-	cout << "|         |" << endl;
-	get_kubik(14, i + 3);
-	cout << "|    #    |" << endl;
-	get_kubik(14, i + 4);
-	cout << "|         |" << endl;
-	get_kubik(14, i + 5);
-	cout << "|_________|" << endl;
+		get_kubik(14, i + 0);
+		cout << " _________ " << endl;
+		get_kubik(14, i + 1);
+		cout << "|         |" << endl;
+		get_kubik(14, i + 2);
+		cout << "|         |" << endl;
+		get_kubik(14, i + 3);
+		cout << "|    #    |" << endl;
+		get_kubik(14, i + 4);
+		cout << "|         |" << endl;
+		get_kubik(14, i + 5);
+		cout << "|_________|" << endl;
 	}
 	else if (rank == 2)
 	{
@@ -191,11 +192,11 @@ int main()
 		cout << "Velkome in the game 'KUBIK'\nPress any key to continue(press 0 to break): ";
 		cin >> kakih;
 		int fi = 0;
-		cout << "Enter size of rounds: ";
-		cin >> fi;
 		int player_1, player_2, bot_1, bot_2, avg = 0, avg_bot = 0, suma = 0, suma_bot = 0, kolichestvo = 0, kolichestvo_bot = 0;
 		if (kakih != 0)
 		{
+			cout << "Enter size of rounds: ";
+			cin >> fi;
 			while (fi != 0)
 			{
 				fi--;
@@ -203,16 +204,17 @@ int main()
 				player_1 = randint(1, 6);
 				player_2 = randint(1, 6);
 				cub(player_1);
-				cub2(player_2, 5);
+				cub2(player_2, 0);
 				int player = player_1 + player_2;
 				bot_1 = randint(1, 6);
 				bot_2 = randint(1, 6);
-				
+				cub(bot_1);
+				cub2(bot_2, 6);
+
 				int bot = bot_1 + bot_2;
 				if (player < bot)
 				{
-					cub(bot_1);
-					cub2(bot_2, 5);
+
 					cout << "You lose, bot have: " << bot_1 << ", " << bot_2 << " You have: " << player_1 << ", " << player_2 << endl;
 					suma += player;
 					kolichestvo++;
@@ -245,24 +247,26 @@ int main()
 				cout << "Bot have: suma: " << suma_bot << " avg: " << avg_bot << endl;
 				if (fi != 0)
 				{
-				int action;
-				cout << "What you do?\n1)Anothe one kkubik\n2)End\nAction: ";
-				cin >> action;
-				if (action == 2)
-					fi = 0;
-				else if (action == 1)
-					continue;
-				else
-					cout << "Nepravilno" << endl;
+					int action;
+					cout << "What you do?\n1)Anothe one kkubik\n2)End\nAction: ";
+					cin >> action;
+					if (action == 2)
+						fi = 0;
+					else if (action == 1)
+						continue;
+					else
+						cout << "Nepravilno" << endl;
 				}
 				else
 				{
-					int l;
+					char l;
 					cout << "Press any key to continue" << endl;
 					cin >> l;
 				}
 			}
 		}
+		else if (kakih == 0)
+			break;
 	}
 
 	return 0;
