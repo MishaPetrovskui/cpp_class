@@ -189,6 +189,17 @@ bool is_can_move(char maze[6][11], int size, int x, int y)
 	return true;
 }
 
+void vivod(const int rows, const int columns, char array[6][11])
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			cout << array[i][j];
+		}
+		cout << endl;
+	}
+}
 
 bool pass_maze(char maze[6][11], int size, int x, int y)
 {
@@ -196,29 +207,20 @@ bool pass_maze(char maze[6][11], int size, int x, int y)
 		return true;
 
 	maze[x][y] = '^';
-	cout << maze << endl;
-	if (is_can_move(maze, size, x, y - 1) && pass_maze(maze, size, x, y - 1))
-		return true;
-	/*
-	maze[x][y] = '>';
-	cout << maze << endl;
-	if (is_can_move(maze, size, x + 1, y) && pass_maze(maze, size, x + 1, y))
-		return true;
-
-	maze[x][y] = '>';
-	cout << maze << endl;
-	if (is_can_move(maze, size, x,y + 1) && pass_maze(maze, size, x, y + 1))
-		return true;
-
-	maze[x][y] = '<';
-	cout << maze << endl;
 	if (is_can_move(maze, size, x - 1, y) && pass_maze(maze, size, x - 1, y))
 		return true;
+	maze[x][y] = '>';
+	if (is_can_move(maze, size, x, y + 1) && pass_maze(maze, size, x, y + 1))
+		return true;
+	maze[x][y] = '|';
+	if (is_can_move(maze, size, x + 1,y) && pass_maze(maze, size, x + 1, y))
+		return true;
+	maze[x][y] = '<';
+	if (is_can_move(maze, size, x, y - 1) && pass_maze(maze, size, x, y - 1))
+		return true;
 
-	
-	*/
+
 	maze[x][y] = ',';
-	cout << maze << endl;
 	return false;
 }
 
@@ -227,27 +229,15 @@ int main()
 	srand(time(NULL));
 	const int rows = 6, columns = 11;
 	char field[rows][columns] = { {"##########"}, {"...####.##"}, {"##.......#"}, {"##.#######"}, {"##.....e##"}, {"##########"} };
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < columns; j++)
-		{
-			cout << field[i][j];
-		}
-		cout << endl;
-	}
+	vivod(rows, columns, field);
 	int starting_point_x = 0, starting_point_y = 0;
-	cout << "start: ";
-	cin >> starting_point_x, starting_point_y;
+	cout << "start(x): ";
+	cin >> starting_point_x; 
+	cout << "start(y): ";
+	cin >> starting_point_y;
 
-	bool result = pass_maze(field, 10, starting_point_x, starting_point_y);
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < columns; j++)
-		{
-			cout << field[i][j];
-		}
-		cout << endl;
-	}
+	bool result = pass_maze(field, 11, starting_point_x, starting_point_y);
+	vivod(rows, columns, field);
 	if (result)
 		cout << "yes!" << endl;
 	else
