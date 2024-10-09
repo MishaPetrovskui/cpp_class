@@ -15,6 +15,18 @@ void print_array(int* array, int size)
 	cout << "\b\b." << endl;
 }
 
+void sum(const int rows, const int columns, int array[])
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			cout << array[i][j];
+		}
+		cout << endl;
+	}
+}
+
 void SetColor(int textColor, int bgColor)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
