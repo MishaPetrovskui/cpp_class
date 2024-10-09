@@ -15,18 +15,6 @@ void print_array(int* array, int size)
 	cout << "\b\b." << endl;
 }
 
-void sum(const int rows, const int columns, int array[])
-{
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < columns; j++)
-		{
-			cout << array[i][j];
-		}
-		cout << endl;
-	}
-}
-
 void SetColor(int textColor, int bgColor)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -194,30 +182,42 @@ void cub2(char rank, int i) {
 	}
 }
 
-bool is_can_move(char maze[], int size, int x)
+bool is_can_move(char maze[6][11], int size, int x, int y)
 {
 	if (x < 0 || x >= size) return false;
-	if (maze[x] != '.' && maze[x] != 'e') return false;
+	if (maze[x][y] != '.' && maze[x][y] != 'e') return false;
 	return true;
 }
 
 
-bool pass_maze(char maze[], int size, int x)
+bool pass_maze(char maze[6][11], int size, int x, int y)
 {
-	if (maze[x] == 'e')
+	if (maze[x][y] == 'e')
 		return true;
 
-	maze[x] = '<';
+	maze[x][y] = '^';
 	cout << maze << endl;
-	if (is_can_move(maze, size, x - 1) && pass_maze(maze, size, x - 1))
+	if (is_can_move(maze, size, x, y - 1) && pass_maze(maze, size, x, y - 1))
 		return true;
-
-	maze[x] = '>';
+	/*
+	maze[x][y] = '>';
 	cout << maze << endl;
-	if (is_can_move(maze, size, x + 1) && pass_maze(maze, size, x + 1))
+	if (is_can_move(maze, size, x + 1, y) && pass_maze(maze, size, x + 1, y))
 		return true;
 
-	maze[x] = ',';
+	maze[x][y] = '>';
+	cout << maze << endl;
+	if (is_can_move(maze, size, x,y + 1) && pass_maze(maze, size, x, y + 1))
+		return true;
+
+	maze[x][y] = '<';
+	cout << maze << endl;
+	if (is_can_move(maze, size, x - 1, y) && pass_maze(maze, size, x - 1, y))
+		return true;
+
+	
+	*/
+	maze[x][y] = ',';
 	cout << maze << endl;
 	return false;
 }
@@ -225,19 +225,33 @@ bool pass_maze(char maze[], int size, int x)
 int main()
 {
 	srand(time(NULL));
-	char field[11] = ".#....e...";
+	const int rows = 6, columns = 11;
+	char field[rows][columns] = { {"##########"}, {"...####.##"}, {"##.......#"}, {"##.#######"}, {"##.....e##"}, {"##########"} };
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			cout << field[i][j];
+		}
+		cout << endl;
+	}
+	int starting_point_x = 0, starting_point_y = 0;
+	cout << "start: ";
+	cin >> starting_point_x, starting_point_y;
 
-	cout << field << endl;
-	int starting_point = 0;
-	cout << "Ââåä³òü ïî÷àòêîâó òî÷êó: ";
-	cin >> starting_point;
-
-	bool result = pass_maze(field, 10, starting_point);
-	cout << field << endl;
+	bool result = pass_maze(field, 10, starting_point_x, starting_point_y);
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			cout << field[i][j];
+		}
+		cout << endl;
+	}
 	if (result)
-		cout << "Âèõ³ä ç ëàá³ðèíòó çíàéäåíî!" << endl;
+		cout << "yes!" << endl;
 	else
-		cout << "Âèõ³ä ç ëàá³ðèíòó íå çíàéäåíî." << endl;
+		cout << "no." << endl;
 
 	return 0;
 }
