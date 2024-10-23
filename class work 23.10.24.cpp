@@ -127,6 +127,17 @@ struct Date {
 	}
 };
 
+Date getMinDate(Date dates[], int size)
+{
+	Date earlierDate = dates[0];
+	for (int i = 1; i < 5; i++)
+	{
+		if (dates[i].asDays() < earlierDate.asDays())
+			earlierDate = dates[i];
+	}
+	return earlierDate;
+}
+
 int main()
 {
 	srand(time(NULL));
@@ -151,12 +162,7 @@ int main()
 		dates_list[i].print_date();
 		cout << endl;
 	}
-	Date earlierDate = dates_list[0];
-	for (int i = 1; i < 5; i++)
-	{
-		if (dates_list[i].asDays() < earlierDate.asDays())
-			earlierDate = dates_list[i];
-	}
+	Date earlierDate = getMinDate(dates_list, 5);
 	cout << "Cfvf hfyyz lfnf: ";
 	earlierDate.print_date();
 
