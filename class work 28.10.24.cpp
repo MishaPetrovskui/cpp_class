@@ -142,9 +142,11 @@ void bubbleSortTrains(Train trains[], const int len) {
 int main() {
     srand(time(NULL));
     Train trains[10];
+    double money = 0;
 
     for (int i = 0; i < 10; i++) {
         trains[i] = generateTrain();
+        money += trains[i].price;
     }
 
     bubbleSortTrains(trains, 10);
@@ -153,6 +155,6 @@ int main() {
         trains[i].print();
         cout << endl;
     }
-
+    cout << money << endl;
     return 0;
 }
