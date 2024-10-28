@@ -126,10 +126,33 @@ Train generateTrain()
     return train;
 }
 
+void bubbleSortTrains(Train trains[], const int len) {
+    bool is_changed = true;
+    for (int n = 0; n < len - 1 && is_changed; n++) {
+        is_changed = false;
+        for (int i = 0; i < len - n - 1; i++) {
+            if (trains[i].startDate.asDays() > trains[i + 1].startDate.asDays()) {
+                swap(trains[i], trains[i + 1]);
+                is_changed = true;
+            }
+        }
+    }
+}
+
 int main() {
     srand(time(NULL));
-    Train t1 = generateTrain();
-    t1.print();
+    Train trains[10];
+
+    for (int i = 0; i < 10; i++) {
+        trains[i] = generateTrain();
+    }
+
+    bubbleSortTrains(trains, 10);
+
+    for (int i = 0; i < 10; i++) {
+        trains[i].print();
+        cout << endl;
+    }
 
     return 0;
 }
