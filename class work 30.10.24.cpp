@@ -143,14 +143,74 @@ void print_field(char field[3][3], int len_1, int len_2)
 {
     for (int i = 0; i < len_1; i++)
     {
-        for (int o = 0; o < len_2 - 1; o++)
+        for (int o = 0; o < len_2; o++)
         {
             cout << field[o][i] << "|";
         }
+        cout << "\b ";
         if (i != 2)
-            cout << "\b\n-----" << endl;
+            cout << "\n-----" << endl;
     }
     cout << endl;
+}
+
+bool make_move(char field[3][3], int row, int col, char player)
+{
+    if ((row > 0 && row < 4) && (col > 0 && col < 4) && (field[row - 1][col - 1] == ' '))
+    {
+        field[row - 1][col - 1] = player;
+        return true;
+    }
+    return false;
+}
+bool win(char field[3][3], char player)
+{
+    if (field[0][0] == player && field[0][1] == player && field[0][2] == player)
+    {
+        return true;
+    }
+    if (field[1][0] == player && field[1][1] == player && field[1][2] == player)
+    {
+        return true;
+    }
+    if (field[2][0] == player && field[2][1] == player && field[2][2] == player)
+    {
+        return true;
+    }
+    if (field[0][0] == player && field[1][1] == player && field[2][2] == player)
+    {
+        return true;
+    }
+    if (field[3][0] == player && field[1][1] == player && field[3][0] == player)
+    {
+        return true;
+    }
+    if (field[0][0] == player && field[1][0] == player && field[2][0] == player)
+    {
+        return true;
+    }
+    if (field[1][0] == player && field[1][1] == player && field[1][2] == player)
+    {
+        return true;
+    }
+    if (field[2][0] == player && field[2][1] == player && field[2][2] == player)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool draw(char field[3][3])
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int o = 0; o < 3; o++)
+        {
+            if (field[i][o] == ' ')
+                return false;
+        }
+    }
+    return true;
 }
 
 int main() {
@@ -162,7 +222,41 @@ int main() {
         { ' ', ' ', ' ' },
         { ' ', ' ', ' ' }
     };
-    print_field(field, 3, 3);
+    int moves = 0;
+    char player = 'X';
+    while (true)
+    {
+        cout << endl;
+        print_field(field, 3, 3);
+        if (moves % 2)
+            player = 'O';
+        else
+            player = 'X';
+        cout << "Vedit koordinati dla " << player << ": ";
+        int row, col;
+        cin >> row >> col;
+        if (make_move(field, row, col, player))
+        {
+            moves++;
+        }
+        else
+        {
+            cout << "Necorectniy hod" << endl;
+        }
+         if (win(field, player))
+         {
+             print_field(field, 3, 3);
+             cout << player << "win" << endl;
+             break;
+         }
+         if (draw(field))
+         {
+             print_field(field, 3, 3);
+             cout << "draw" << endl;
+             break;
+        }
+    }
+
 
     return 0;
 }
