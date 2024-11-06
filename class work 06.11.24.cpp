@@ -2,6 +2,7 @@
 #include <time.h>
 #include <windows.h>
 #include <string>
+#define FILE_PATH "menu.txt"
 
 using namespace std;
 
@@ -227,6 +228,7 @@ int main() {
     fwrite("\n", 1, 1, file);
     fclose(file);
     */
+    /*
     FILE* file;
     fopen_s(&file, "numbers.txt", "wb");
     int numbers[] = { 6,10,3,7,12 };
@@ -239,6 +241,63 @@ int main() {
         cout << number << " ";
     }
     fclose(file);
+    */
+    FILE* file;
+    while (true)
+    {
+        int vibor;
+        cout << "MENU\n1)New file\n2)Add file\n3)Vivod\n4)Suma\n0)EXIT\nAction: ";
+        cin >> vibor;
+        system("cls");
+        if (vibor == 1)
+        {
+            fopen_s(&file, FILE_PATH, "wb");
+            fclose(file);
+        }
+        else if (vibor == 2)
+        {
+            fopen_s(&file, FILE_PATH, "ab");
+            int massage;
+            cout << ">> ";
+            cin >> massage;
+            fwrite(&massage, sizeof(massage), 1, file);
+            fclose(file);
+        }
+        else if (vibor == 3)
+        {
+            fopen_s(&file, FILE_PATH, "rb");
+            int number;
+            while (fread(&number, sizeof(int), 1, file))
+            {
+                cout << number << ", ";
+            }
+            cout << "\b\b ";
+            fclose(file);
+            cout << endl;
+        }
+        else if (vibor == 4)
+        {
+            fopen_s(&file, FILE_PATH, "rb");
+            int number, sumar = 0;
+            while (fread(&number, sizeof(int), 1, file))
+            {
+                cout << number << " + ";
+                sumar += number;
+            }
+            cout << "\b\b= " << "HELLO WORLD!";
+            fclose(file);
+            cout << endl;
+        }
+        else if (vibor == 0)
+        {
+            break;
+        }
+        else
+        {
+            cout << "ERROR!";   
+        }
+    }
+
 
     return 0;
 } 
