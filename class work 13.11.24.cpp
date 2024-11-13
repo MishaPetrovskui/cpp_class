@@ -248,7 +248,7 @@ Car find_car()
     cin >> car.model;
     cout << "Input number of car: ";
     cin >> car.number;
-   
+
     cout << "Input year_of_manufacture of car: ";
     cin >> car.year_of_manufacture;
     cout << "Input mileage of car: ";
@@ -266,10 +266,10 @@ void cout_car()
     int po = 1;
     while (fread(&car, sizeof(Car), 1, file))
     {
-        cout << po++ << ". " << car.brend << " | " << car.model << " | " << car.number << " | ";
-        
-        cout << car.year_of_manufacture << " | " << car.volume_engine << " | " <<
-                car.mileage;
+        cout << po++ << ". " << "brend: " << car.brend << " | " << "model: " << car.model << " | " << "number: " << car.number << " | ";
+
+        cout << "year of manufacture: " << car.year_of_manufacture << " | " << "volume engine: " << car.volume_engine << " | " << "mileage: " <<
+            car.mileage;
         cout << endl;
     }
     fclose(file);
@@ -336,7 +336,7 @@ int main() {
             cout << "ERROR!";
     }
     */
-    
+
     FILE* file;
     /*
     if (errno_t err_n = fopen_s(&file, FILE_PATH, "ab"))
@@ -361,6 +361,7 @@ int main() {
         cout << "MENU:\n1)Add car\n2)Output cars list\n0)Exit\nACTION: ";
         int action;
         cin >> action;
+        system("cls");
         if (action == 0)
         {
             break;
@@ -380,8 +381,7 @@ int main() {
         {
             if (errno_t err_n = fopen_s(&file, FILE_PATH, "rb"))
             {
-                cout << "Not found file!" << endl;
-                return 0;
+                car = find_car();
             }
             cout_car();
             fclose(file);
