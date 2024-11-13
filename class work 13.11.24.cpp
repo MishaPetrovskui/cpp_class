@@ -2,7 +2,7 @@
 #include <time.h>
 #include <windows.h>
 #include <string>
-#define FILE_PATH "students.txt"
+#define FILE_PATH "cars.txt"
 
 using namespace std;
 
@@ -231,13 +231,53 @@ void set_student_by_index(int index, Student student)
 
 struct Car
 {
-    string model, brend, number;
-    int year_of_vipusk, probig;
-    float obem_engine;
+    char model[20];
+    char brend[20];
+    char number[20];
+    int year_of_manufacture;
+    int mileage;
+    float volume_engine;
 };
+
+Car find_car()
+{
+    Car car;
+    cout << "Input brend of car: ";
+    cin >> car.brend;
+    cout << "Input model of car: ";
+    cin >> car.model;
+    cout << "Input number of car: ";
+    cin >> car.number;
+   
+    cout << "Input year_of_manufacture of car: ";
+    cin >> car.year_of_manufacture;
+    cout << "Input mileage of car: ";
+    cin >> car.mileage;
+    cout << "Input volume_engine of car: ";
+    cin >> car.volume_engine;
+    return car;
+}
+
+void cout_car()
+{
+    Car car;
+    FILE* file;
+    fopen_s(&file, FILE_PATH, "rb");
+    int po = 1;
+    while (fread(&car, sizeof(Car), 1, file))
+    {
+        cout << po++ << ". " << car.brend << " | " << car.model << " | " << car.number << " | ";
+        
+        cout << car.year_of_manufacture << " | " << car.volume_engine << " | " <<
+                car.mileage;
+        cout << endl;
+    }
+    fclose(file);
+}
 
 int main() {
     srand(time(NULL));
+    /*
     FILE* file;
     Student student;
     while (true)
@@ -295,7 +335,58 @@ int main() {
         else
             cout << "ERROR!";
     }
-
+    */
+    
+    FILE* file;
+    /*
+    if (errno_t err_n = fopen_s(&file, FILE_PATH, "ab"))
+    {
+        cout << "Not found file!" << endl;
+        return 0;
+    }
+    Car car = find_car();
+    fwrite(&car, sizeof(Car), 1, file);
+    fclose(file);
+    if (errno_t err_n = fopen_s(&file, FILE_PATH, "rb"))
+    {
+        cout << "Not found file!" << endl;
+        return 0;
+    }
+    cout_car();
+    fclose(file);
+    */
+    Car car;
+    while (true)
+    {
+        cout << "MENU:\n1)Add car\n2)Output cars list\n0)Exit\nACTION: ";
+        int action;
+        cin >> action;
+        if (action == 0)
+        {
+            break;
+        }
+        else if (action == 1)
+        {
+            if (errno_t err_n = fopen_s(&file, FILE_PATH, "ab"))
+            {
+                cout << "Not found file!" << endl;
+                return 0;
+            }
+            car = find_car();
+            fwrite(&car, sizeof(Car), 1, file);
+            fclose(file);
+        }
+        else if (action == 2)
+        {
+            if (errno_t err_n = fopen_s(&file, FILE_PATH, "rb"))
+            {
+                cout << "Not found file!" << endl;
+                return 0;
+            }
+            cout_car();
+            fclose(file);
+        }
+    }
 
     return 0;
 }
