@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <time.h>
 #include <windows.h>
@@ -237,6 +238,15 @@ struct Car
     int year_of_manufacture;
     int mileage;
     float volume_engine;
+
+    int getAge()
+    {
+        return (2024 - year_of_manufacture);
+    }
+    int getAvgMileage()
+    {
+        return (mileage / getAge());
+    }
 };
 
 Car find_car()
@@ -272,6 +282,26 @@ void cout_car()
             car.mileage;
         cout << endl;
     }
+    fclose(file);
+}
+
+void cout_car_with_avg()
+{
+    Car car;
+    FILE* file;
+    fopen_s(&file, FILE_PATH, "rb");
+    int po = 1;
+    int quantity = 0, sum_mileage = 0;
+    while (fread(&car, sizeof(Car), 1, file))
+    {
+        cout << po++ << ". " << "brend: " << car.brend << "  " << "model: " << car.model;
+
+        cout << " year of manufacture: " << car.year_of_manufacture << "(" << car.getAge() << "years)" << "  " << "mileage: " << car.mileage << 
+            " | " << car.getAvgMileage() << "km" << endl;
+        quantity++;
+        sum_mileage += car.getAvgMileage();
+    }
+    cout << "AVG: " << sum_mileage / quantity << "km/year" << endl;
     fclose(file);
 }
 
@@ -358,7 +388,7 @@ int main() {
     Car car;
     while (true)
     {
-        cout << "MENU:\n1)Add car\n2)Output cars list\n0)Exit\nACTION: ";
+        cout << "MENU:\n1)Add car\n2)Output cars list\n3)AVG mileage all cars\n0)Exit\nACTION: ";
         int action;
         cin >> action;
         system("cls");
@@ -379,13 +409,28 @@ int main() {
         }
         else if (action == 2)
         {
+            system("cls");
             if (errno_t err_n = fopen_s(&file, FILE_PATH, "rb"))
             {
-                car = find_car();
+                cout << "Not found file!" << endl;
+                return 0;
             }
             cout_car();
             fclose(file);
         }
+        else if (action == 3)
+        {
+            system("cls");
+            if (errno_t err_n = fopen_s(&file, FILE_PATH, "rb"))
+            {
+                cout << "Not found file!" << endl;
+                return 0;
+            }
+            cout_car_with_avg();
+            fclose(file);
+        }
+        else
+            cout << "ERROR!" << endl;
     }
 
     return 0;
