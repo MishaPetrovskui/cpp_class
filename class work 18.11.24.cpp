@@ -21,12 +21,12 @@ void SetColor(int textColor, int bgColor)
 
 int main() {
     srand(time(NULL));
-    fstream file;
+    fstream file, file2;
     /*
     fstream file(FILE_PATH, ios::app);
 
     file << "Hello! " << endl;
-    
+
     file.close();
     */
     /*
@@ -41,7 +41,7 @@ int main() {
     */
     while (true)
     {
-        cout << "MENU:\n1)Add text\n2)Out text\n3)New file\n4)Max len\n0)Exit\nAction: ";
+        cout << "MENU:\n1)Add text\n2)Out text\n3)New file\n4)Max len\n5)Copy file\n6)Copy long text\n0)Exit\nAction: ";
         int nAction;
         cin >> nAction;
         system("cls");
@@ -67,7 +67,7 @@ int main() {
                 string text;
                 //file >> text;
                 getline(file, text);
-                cout << _++ <<". " << text << endl;
+                cout << _++ << ". " << text << endl;
             }
             file.close();
         }
@@ -91,6 +91,61 @@ int main() {
                 }
             }
             cout << corect_text << endl << file_size << " size" << endl;
+            file.close();
+        }
+        else if (nAction == 5)
+        {
+            cout << "Name copy: ";
+            char FILE_PATH_NEW[20];
+            cin >> FILE_PATH_NEW;
+            file.open(FILE_PATH, ios::in);
+            file2.open(FILE_PATH_NEW, ios::out);
+            while (file)
+            {
+                string text;
+                getline(file, text);
+                file2 << text << endl;
+            }
+            file.close();
+            file2.close();
+        }
+        else if (nAction == 6)
+        {
+            cout << "Name copy: ";
+            char FILE_PATH_NEW[20];
+            cin >> FILE_PATH_NEW;
+            file.open(FILE_PATH, ios::in);
+            file2.open(FILE_PATH_NEW, ios::out);
+            while (file)
+            {
+                string text;
+                getline(file, text);
+                if (text.length() >= 7)
+                {
+                    file2 << text << endl;
+                }
+            }
+            file.close();
+            file2.close();
+        }
+        else if (nAction == 7)
+        {
+            cout << "Enter bukva: ";
+            char bukva;
+            cin >> bukva;
+            file.open(FILE_PATH, ios::in);
+            string text;
+            int file_size = 0;
+            while (file)
+            {
+                file >> text;
+                if (text[0] == bukva)
+                {
+                    file_size += text.length();
+                    cout << text << "  " << file_size << endl;
+                }
+            }
+            cout << file_size << endl;
             file.close();
         }
         else
