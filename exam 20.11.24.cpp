@@ -39,7 +39,7 @@ void bubbleSortU(SAVE correct[], int len) {
     for (int i = 0; i < len - 1; i++) {
         swapped = false;
         for (int j = 0; j < len - i - 1; j++) {
-            if (correct[j].score > correct[j + 1].score) {
+            if (correct[j].score < correct[j + 1].score) {
                 swap(correct[j], correct[j + 1]);
                 swapped = true;
             }
@@ -51,9 +51,9 @@ void bubbleSortU(SAVE correct[], int len) {
 
 int main() {
     srand(time(NULL));
-    int lives = 3, score = 0, len = 0;
     while (true)
     {
+        int lives = 3, score = 0, len = 0;
         cout << "WELCOME TO MATH TRENER\nMENU:\n1)Start a game\n0)Exit\nAction: ";
         int action;
         cin >> action;
@@ -62,6 +62,7 @@ int main() {
             break;
         else if (action == 1)
         {
+            string unswer;
             while (lives > 0)
             {
                 int first_number = randint(0, 100), second_number = randint(0, 100);
@@ -69,7 +70,6 @@ int main() {
                 SetColor(2, 0);
                 cout << first_number << " + " << second_number << " = ";
                 SetColor(7, 0);
-                string unswer;
                 cin >> unswer;
                 if (unswer == "quit")
                 {
@@ -104,27 +104,41 @@ int main() {
                     SetColor(7, 0);
                 }
             }
-            if (lives <= 0)
+            if (lives <= 0 || unswer == "quit")
             {
                 cout << "Lives are over\nYou lose\nScore: " << score << endl;
-                SAVE save[5];
-                cout << "Enter your name";
-                cin >> save[4].name;
-                save[4].score = score;
                 FILE* file;
-                fopen_s(&file, FILE_PATH, "rb");
+                fopen_s(&file, FILE_PATH, "a+b");
+                fclose(file);
+                SAVE save[5], new_save;
                 int po = 0;
-                while (fread(&save, sizeof(SAVE), 1, file))
-                {
-                    save[po].name;
-                    save[po].score;
+                fopen_s(&file, FILE_PATH, "r+b");
+                while (fread(&save[po], sizeof(SAVE), 1, file) && po < 5)
                     po++;
-                }
-                if (po >= 5)
-                    bubbleSortU(save, po - 1);
-                else
+                fclose(file);
+                if (score > save[po-1].score)
+                {
+                    cout << "Enter your name ";
+                    cin >> new_save.name;
+                    new_save.score = score;
+                    if (po < 5)
+                        save[po++] = new_save;
+                    else
+                        save[--po] = new_save;
                     bubbleSortU(save, po);
-
+                    fopen_s(&file, FILE_PATH, "w+b");
+                    for (int i = 0; i < po; i++) {
+                        fwrite(&save[i], sizeof(SAVE), 1, file);
+                    }
+                    fclose(file);
+                }
+                cout << "Top 5 leaders" << endl;
+                fopen_s(&file, FILE_PATH, "r+b");
+                for (int i = 0; i < po; i++)
+                {
+                    cout << save[i].name << " - " << save[i].score << endl;
+                }
+                fclose(file);
             }
         }
         else
